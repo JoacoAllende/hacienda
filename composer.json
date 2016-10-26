@@ -1,5 +1,5 @@
 {
-  "name": "institucion/nombre-proyecto",
+  "name": "hacienda",
   "description": "",
   "repositories": [
     {
@@ -8,7 +8,18 @@
     }
   ],
   "require": {
-    "siu-toba/framework": "2.7.x-dev"
+    "siu-toba/framework": "^3.1"    
+  },
+  "config": {
+     "bin-dir": "./bin" 
+  },
+  "scripts": {
+     "post-install-cmd": [
+           "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+     ],
+     "post-update-cmd": [
+            "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+     ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true

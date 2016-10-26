@@ -1,35 +1,42 @@
-pg:
+pgh:
   image: postgres:9.4
   ports:
    - "7432:5432"
-  container_name: pg
+  container_name: pgh
   environment:
     POSTGRES_USER       : postgres
     POSTGRES_PASSWORD   : postgres
 
-nombre_proyecto:
+gestionHacienda:
   image: siutoba/docker-toba
-  container_name: nombre_proyecto
+  container_name: gestionHacienda
   ports:
    - "7008:80"
   environment:
-    DOCKER_NAME                       : nombre_proyecto
+    DOCKER_NAME                       : gestionHacienda
     DOCKER_WEB_PORT                   : 7008
     TOBA_PASS                         : toba
     TOBA_BASE_PASS                    : postgres
-    TOBA_DIR                          : /var/local/nombre_proyecto/vendor/siu-toba/framework
-    TOBA_INSTALACION_DIR              : /var/local/docker-data/nombre_proyecto-instalacion
-    TOBA_BASE_HOST                    : pg
-    TOBA_BASE_NOMBRE                  : toba_nombre_proyecto
-    TOBA_PROYECTO                     : nombre_proyecto
-    TOBA_PROYECTO_DIR                 : /var/local/nombre_proyecto
-    TOBA_PROYECTO_ALIAS               : /nombre_proyecto
+    TOBA_DIR                          : /var/local/gestionHacienda/vendor/siu-toba/framework
+    TOBA_INSTALACION_DIR              : /var/local/docker-data/gestionHacienda-instalacion
+    TOBA_BASE_HOST                    : pgh
+    TOBA_BASE_NOMBRE                  : toba_gestionHacienda
+    TOBA_PROYECTO                     : gestionHacienda
+    TOBA_PROYECTO_DIR                 : /var/local/gestionHacienda
+    TOBA_PROYECTO_ALIAS               : /gestionHacienda
     TOBA_PROYECTO_INSTALAR            : "True"
-#    TOBA_PROYECTO_INSTALAR_PARAMETROS : --base-nombre mapuche
     TOBA_INSTALAR_REFERENCIA          : "True"
     TOBA_INSTALAR_USUARIOS            : "True"
   links:
-   - pg
+   - pgh
   volumes:
-   - .:/var/local/nombre_proyecto
-   - ./instalacion:/var/local/docker-data/nombre_proyecto-instalacion
+   - .:/var/local/gestionHacienda
+   - ./instalacion:/var/local/docker-data/gestionHacienda-instalacion
+adminer:
+    image: adminer
+    links:
+    - pgh
+    ports:
+      - 8001:8080
+    environment:
+      ADMINER_DEFAULT_SERVER : pgh
