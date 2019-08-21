@@ -1,5 +1,5 @@
 /**
-	Incluir aquí las reglas css propias de este proyecto 
+	Incluir aquï¿½ las reglas css propias de este proyecto 
 */
 
 #tipclick_div.tooltip{ /* The styling on the tooltip */
@@ -12,4 +12,13 @@
 	font: normal normal normal 11px Verdana, Arial, Helvetica, sans-serif; 
 	position: absolute;
 	opacity: 90;
+}
+
+.estilo-cuadro {
+	font-size: 15px;
+}
+
+.cuadro-numero {
+	font-size: 15px;
+	text-align: right;
 }
