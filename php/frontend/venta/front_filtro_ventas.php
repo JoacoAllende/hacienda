@@ -28,7 +28,7 @@ class front_filtro_ventas extends gestionHacienda_ei_formulario
 		{
 			if (!this.ef('id_cliente').tiene_estado()) {
 				this.controlador.dep('formulario').ocultar();
-				this.controlador.dep('form_nueva_venta').ocultar();
+				// this.controlador.dep('cuadro').ocultar();
 			}
 		}
 		";

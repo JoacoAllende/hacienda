@@ -22,5 +22,10 @@ class dt_cliente extends gestionHacienda_datos_tabla
 		return toba::db('gestionHacienda')->consultar($sql);
 	}
 
+
+
+
+
+
 }
 ?>

@@ -3,9 +3,11 @@ class cons_ventas
 {
     function get_ventas($id_cliente, $fecha_desde, $fecha_hasta)
     {
-        $sql = "SELECT *
-                FROM venta
-                WHERE id_cliente = $id_cliente AND fecha >= '$fecha_desde' AND fecha <= '$fecha_hasta'";
+        $sql = "SELECT v.*, (c.apellido || ' ' || c.nombre) AS ncompleto
+                FROM venta AS v
+                INNER JOIN cliente AS c ON (c.id = v.id_cliente)
+                WHERE id_cliente = $id_cliente AND fecha >= '$fecha_desde' AND fecha <= '$fecha_hasta'
+                ORDER BY id_venta";
         return toba::db()->consultar($sql);
     }
     
