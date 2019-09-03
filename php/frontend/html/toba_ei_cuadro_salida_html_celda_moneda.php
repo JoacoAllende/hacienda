@@ -39,7 +39,7 @@ class toba_ei_cuadro_salida_html_celda_moneda extends toba_ei_cuadro_salida_html
                         else
                             $valor = null;
 					} 
-					if ($a == 'diferenciakilos' || $a == 'kgtotales') {
+					if ($a == 'kgtotales') {
 						if($datos[$id_fila]['tipo'] == 'Pago')
 							$valor = null;
 						else

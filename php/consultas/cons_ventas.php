@@ -11,12 +11,12 @@ class cons_ventas
         return toba::db()->consultar($sql);
     }
     
-    function add_venta($id_cliente, $fecha, $categoria, $tropa, $cantAnimales, $difKilos, $kgTotales, $precioKilo, 
+    function add_venta($id_cliente, $fecha, $categoria, $tropa, $cantAnimales, $kgTotales, $precioKilo, 
     $precioTotal, $entrega, $saldoCliente, $tipo)
     {
-        $sql = "INSERT INTO venta (id_cliente, fecha, categoria, tropa, cantanimales, diferenciakilos, kgtotales, preciokilo,
+        $sql = "INSERT INTO venta (id_cliente, fecha, categoria, tropa, cantanimales, kgtotales, preciokilo,
                 preciototal, entrega, saldoactualcliente, tipo)
-                VALUES ($id_cliente, '$fecha', '$categoria', $tropa, $cantAnimales, $difKilos, $kgTotales, $precioKilo, 
+                VALUES ($id_cliente, '$fecha', '$categoria', $tropa, $cantAnimales, $kgTotales, $precioKilo, 
                 $precioTotal, $entrega, $saldoCliente, '$tipo')";
         toba::db()->ejecutar($sql);
     }

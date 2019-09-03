@@ -20,9 +20,9 @@ class front_nueva_venta extends gestionHacienda_ei_formulario
 				this.ef('cantAnimales').ocultar();
 				this.ef('cantAnimales').set_obligatorio(false);
 				this.ef('cantAnimales').set_estado(null);
-				this.ef('difKilos').ocultar();
-				this.ef('difKilos').set_obligatorio(false);
-				this.ef('difKilos').set_estado(null);
+				this.ef('kgTotales').ocultar();
+				this.ef('kgTotales').set_obligatorio(false);
+				this.ef('kgTotales').set_estado(null);
 				this.ef('precioKilo').ocultar();
 				this.ef('precioKilo').set_obligatorio(false);
 				this.ef('precioKilo').set_estado(null);
@@ -33,8 +33,8 @@ class front_nueva_venta extends gestionHacienda_ei_formulario
 				this.ef('tropa').set_obligatorio(true);
 				this.ef('cantAnimales').mostrar();
 				this.ef('cantAnimales').set_obligatorio(true);
-				this.ef('difKilos').mostrar();
-				this.ef('difKilos').set_obligatorio(true);
+				this.ef('kgTotales').mostrar();
+				this.ef('kgTotales').set_obligatorio(true);
 				this.ef('precioKilo').mostrar();
 				this.ef('precioKilo').set_obligatorio(true);
 			}
@@ -47,9 +47,9 @@ class front_nueva_venta extends gestionHacienda_ei_formulario
 				let curr_date = d.getDate();
 				let curr_month = d.getMonth() + 1; //Months are zero based
 				let curr_year = d.getFullYear();
-                let array_fecha = curr_date + '/' + curr_month + '/' + curr_year;
-                this.ef('fecha').set_estado(array_fecha);
-            }
+				let array_fecha = curr_date + '/' + curr_month + '/' + curr_year;
+				this.ef('fecha').set_estado(array_fecha);
+			}
 		}
 		";
 	}

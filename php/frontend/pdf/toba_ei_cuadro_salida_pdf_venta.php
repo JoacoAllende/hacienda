@@ -29,7 +29,7 @@ class toba_ei_cuadro_salida_pdf_venta extends toba_ei_cuadro_salida_pdf
                 else
                     $valor = null;
             } 
-            if ($a == 'diferenciakilos' || $a == 'kgtotales') {
+            if ($a == 'kgtotales') {
                 if($datos_cuadro[$id_fila]['tipo'] == 'Pago')
                     $valor = null;
                 else

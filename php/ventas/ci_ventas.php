@@ -46,12 +46,11 @@ class ci_ventas extends gestionHacienda_ci
 			$categoria = $datos['categoria'];
 			$tropa = $datos['tropa'];
 			$cantAnimales = $datos['cantAnimales'];
-			$difKilos = $datos['difKilos'];
-			$kgTotales = $cantAnimales * 100 - $difKilos;
+			$kgTotales = $datos['kgTotales'];
 			$precioKilo = $datos['precioKilo'];
 			$precioTotal = $precioKilo * $kgTotales;
 			$saldoCliente = $saldoCliente + $precioTotal - $entrega;
-			toba::consulta_php('cons_ventas')->add_venta($this->s__id_cliente, $fecha, $categoria, $tropa, $cantAnimales, $difKilos, $kgTotales, 
+			toba::consulta_php('cons_ventas')->add_venta($this->s__id_cliente, $fecha, $categoria, $tropa, $cantAnimales, $kgTotales, 
 			$precioKilo, $precioTotal, $entrega, $saldoCliente, $tipo);
 			toba::consulta_php('cons_ventas')->update_saldo_cliente($this->s__id_cliente, $saldoCliente);
 		}
