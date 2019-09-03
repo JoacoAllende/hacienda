@@ -10,7 +10,6 @@ class dt_venta extends gestionHacienda_datos_tabla
 			t_v.categoria,
 			t_v.tropa,
 			t_v.cantanimales,
-			t_v.diferenciakilos,
 			t_v.kgtotales,
 			t_v.preciokilo,
 			t_v.preciototal,
@@ -22,9 +21,10 @@ class dt_venta extends gestionHacienda_datos_tabla
 			cliente as t_c
 		WHERE
 				t_v.id_cliente = t_c.id
-		ORDER BY tropa";
+		ORDER BY categoria";
 		return toba::db('gestionHacienda')->consultar($sql);
 	}
+
 
 
 

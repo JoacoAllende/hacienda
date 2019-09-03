@@ -40,6 +40,40 @@ class toba_ei_cuadro_salida_pdf_venta extends toba_ei_cuadro_salida_pdf
         return $fila;
     }
 
+    function pdf_pie_corte_control( &$nodo, $es_ultimo )
+	{
+		//-----  Cabecera del PIE --------
+		$indice_cortes = $this->_cuadro->get_indice_cortes();
+		$acumulador_usuario = $this->_cuadro->get_acumulador_usuario();
+
+		$this->pdf_cabecera_pie($indice_cortes, $nodo);
+		//----- Totales de columna -------
+		if (isset($nodo['acumulador']) && ! isset($nodo['pdf_acumulador_generado'])) {
+			$this->pdf_cuadro_totales_columnas($nodo['acumulador'],
+												$nodo['profundidad'],
+												true,
+												null);
+		}
+		//------ Sumarizacion AD-HOC del usuario --------
+		if(isset($nodo['sum_usuario'])){
+			foreach($nodo['sum_usuario'] as $id => $valor){
+				$desc = $acumulador_usuario[$id]['descripcion'];
+				$datos[$desc] = $valor;
+			}
+			$this->pdf_cuadro_sumarizacion($datos,null,300,$nodo['profundidad']);
+		}
+		//----- Contar Filas
+		if($indice_cortes[$nodo['corte']]['pie_contar_filas']){
+			$etiqueta = $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']);
+			$this->_objeto_toba_salida->texto("<i>".$etiqueta.'</i>', $this->_pdf_letra_tabla, $this->_pdf_contar_filas_op);
+		}
+
+		//----- Contenido del usuario al final del PIE
+        $this->pdf_pie_pie($nodo, $es_ultimo);
+        if (!$es_ultimo)
+		    $this->_objeto_toba_salida->salto_pagina();
+	}
+
     protected function pdf_get_estilo($estilo)
 	{
     	switch($estilo) {

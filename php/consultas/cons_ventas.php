@@ -6,8 +6,10 @@ class cons_ventas
         $sql = "SELECT v.*, (c.apellido || ' ' || c.nombre) AS ncompleto
                 FROM venta AS v
                 INNER JOIN cliente AS c ON (c.id = v.id_cliente)
-                WHERE id_cliente = $id_cliente AND fecha >= '$fecha_desde' AND fecha <= '$fecha_hasta'
-                ORDER BY id_venta";
+                WHERE fecha >= '$fecha_desde' AND fecha <= '$fecha_hasta'";
+        if ($id_cliente != null)
+            $sql .= "AND id_cliente = $id_cliente";
+        $sql .= "ORDER BY id_venta";
         return toba::db()->consultar($sql);
     }
     

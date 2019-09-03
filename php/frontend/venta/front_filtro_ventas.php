@@ -12,10 +12,10 @@ class front_filtro_ventas extends gestionHacienda_ei_formulario
 		{$this->objeto_js}.evt__fecha_hasta__procesar = function(es_inicial)
 		{
 		        if (!this.ef('fecha_desde').tiene_estado()) {
-				let d = new Date();
-				let curr_date = d.getDate();
-				let curr_month = d.getMonth() + 1; //Months are zero based
-				let curr_year = d.getFullYear();
+					let d = new Date();
+					let curr_date = d.getDate();
+					let curr_month = d.getMonth() + 1; //Months are zero based
+					let curr_year = d.getFullYear();
 					let array_fecha_desde = 1 + '/' + curr_month + '/' + curr_year;
 					let array_fecha_hasta = curr_date + '/' + curr_month + '/' + curr_year;
 					this.ef('fecha_desde').set_estado(array_fecha_desde);
@@ -28,7 +28,6 @@ class front_filtro_ventas extends gestionHacienda_ei_formulario
 		{
 			if (!this.ef('id_cliente').tiene_estado()) {
 				this.controlador.dep('formulario').ocultar();
-				// this.controlador.dep('cuadro').ocultar();
 			}
 		}
 		";
