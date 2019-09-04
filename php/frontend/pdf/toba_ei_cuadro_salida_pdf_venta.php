@@ -71,7 +71,19 @@ class toba_ei_cuadro_salida_pdf_venta extends toba_ei_cuadro_salida_pdf
 		//----- Contenido del usuario al final del PIE
         $this->pdf_pie_pie($nodo, $es_ultimo);
         if (!$es_ultimo)
-		    $this->_objeto_toba_salida->salto_pagina();
+			$this->_objeto_toba_salida->salto_pagina();
+	}
+
+	function pdf_cabecera_corte_control(&$nodo )
+	{
+		//Dedusco el metodo que tengo que utilizar para generar el contenido
+		$this->_objeto_toba_salida->insertar_imagen(toba::proyecto()->get_path().'/www/img/logo2.jpg', 5, 0, 'center');
+		$metodo = 'pdf_cabecera_cc_contenido';
+		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
+		if(method_exists($this, $metodo_redeclarado)){
+			$metodo = $metodo_redeclarado;
+		}
+		$this->$metodo($nodo);
 	}
 
     protected function pdf_get_estilo($estilo)
