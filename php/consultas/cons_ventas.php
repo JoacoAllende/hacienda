@@ -45,6 +45,55 @@ class cons_ventas
                 WHERE id = $id_cliente";
         toba::db()->ejecutar($sql);
     }
+
+    function actualizar_ventas($id_venta, $diferencia)
+    {
+        $sql = "UPDATE venta 
+                SET saldoactualcliente = saldoactualcliente - ($diferencia)
+                WHERE id_venta > $id_venta";
+        toba::db()->ejecutar($sql); 
+    }
+
+    function actualizar_saldo_cliente($id_cliente)
+    {
+        $sql = "UPDATE cliente
+                SET saldo = (SELECT saldoactualcliente 
+                            FROM venta 
+                            WHERE id_venta = (SELECT MAX(id_venta) 
+                                                FROM venta 
+                                                WHERE id_cliente = $id_cliente))  WHERE id = $id_cliente";
+        toba::db()->ejecutar($sql);
+    }
+
+    function get_venta($id_venta) {
+        $sql = "SELECT *
+                FROM venta
+                WHERE id_venta = $id_venta";
+        return toba::db()->consultar($sql);
+    }
+
+    function eliminar_venta($id_venta)
+    {
+        $sql = "DELETE FROM venta 
+                WHERE id_venta = $id_venta";
+        toba::db()->ejecutar($sql); 
+    }
+
+    function actualizar_venta($id_venta, $precioTotal, $saldoCliente)
+    {
+        $sql = "UPDATE venta 
+                SET preciototal = $precioTotal, saldoactualcliente = $saldoCliente
+                WHERE id_venta = $id_venta";
+        toba::db()->ejecutar($sql); 
+    }
+
+    function actualizar_pago($id_cliente, $entrega)
+    {
+        $sql = "UPDATE venta 
+                SET entrega = $entrega
+                WHERE id_venta = $id_venta";
+        toba::db()->ejecutar($sql); 
+    }
     
 }
 ?>
