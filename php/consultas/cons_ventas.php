@@ -94,6 +94,16 @@ class cons_ventas
                 WHERE id_venta = $id_venta";
         toba::db()->ejecutar($sql); 
     }
+
+    function get_ventas_por_tropa($tropa)
+    {
+        $sql = "SELECT v.tipo, v.fecha, v.categoria, v.cantanimales, v.kgtotales, v.preciokilo, v.preciototal, (c.apellido || ' ' || c.nombre) AS ncompleto
+                FROM venta AS v
+                INNER JOIN cliente AS c ON (c.id = v.id_cliente)
+                WHERE v.tropa = $tropa
+                ORDER BY v.fecha";
+        return toba::db()->consultar($sql);
+    }
     
 }
 ?>

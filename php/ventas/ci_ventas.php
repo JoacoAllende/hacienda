@@ -80,7 +80,6 @@ class ci_ventas extends gestionHacienda_ci
 		$venta = toba::consulta_php('cons_ventas')->get_venta($datos['id_venta'])[0];
 		if ($datos['tipo'] == 'Pago') {
 			if ($datos['entrega'] != $venta['entrega']){
-				// toba::consulta_php('cons_ventas')->actualizar_pago($venta['id_cliente'], $datos['entrega']);
 				$this->dep('datos')->tabla('venta')->set($datos);
 				$this->dep('datos')->sincronizar();
 				$diferencia = $datos['entrega'] - $venta['entrega'];
