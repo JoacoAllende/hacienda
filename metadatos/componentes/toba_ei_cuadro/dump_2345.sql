@@ -284,7 +284,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'861', --objeto_cuadro_col
 	'cantanimales', --clave
 	'5', --orden
-	'Cant. Medias', --titulo
+	'Cantidad', --titulo
 	'ei-cuadro-col-tit-modificado', --estilo_titulo
 	'cuadro-numero', --estilo
 	NULL, --ancho

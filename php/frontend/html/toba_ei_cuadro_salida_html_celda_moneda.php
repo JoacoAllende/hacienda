@@ -69,6 +69,70 @@ class toba_ei_cuadro_salida_html_celda_moneda extends toba_ei_cuadro_salida_html
 		echo toba::output()->get('CuadroSalidaHtml')->getFinFila();
 	}
 
+	protected function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false, $estilo_linea=null)
+	{
+		$formateo = $this->_cuadro->get_instancia_clase_formateo('html');
+		$columnas = $this->_cuadro->get_columnas();
+		$cant_evt_fila = $this->_cuadro->cant_eventos_sobre_fila();
+
+		//Calculo la cantidad de eventos pre y post columnas del cuadro
+		$cant_evt_pre_columnas = 0;		
+		if ($cant_evt_fila > 0) {
+			foreach ($this->_cuadro->get_eventos_sobre_fila() as $evento) {
+				if ( $evento->tiene_alineacion_pre_columnas()) {
+					$cant_evt_pre_columnas++;
+				}
+			}
+		}
+		$cant_evt_restantes = $cant_evt_fila - $cant_evt_pre_columnas;
+		
+		//Agrego las cabeceras si es necesario
+		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
+		if($agregar_titulos || (! $this->_cuadro->tabla_datos_es_general())) { 
+			echo toba::output()->get('CuadroSalidaHtml')->getInicioFila('');
+			$this->html_cuadro_columnas_relleno($cant_evt_pre_columnas);
+			foreach (array_keys($columnas) as $clave) {
+			    if(isset($totales[$clave])){
+					$valor = $columnas[$clave]["titulo"];
+					echo toba::output()->get('CuadroSalidaHtml')->getCeldaAcumulador($valor,$columnas[$clave]["estilo_titulo"],null);
+				}else{
+					echo toba::output()->get('CuadroSalidaHtml')->getCeldaAcumulador("&nbsp;",null,$clase_linea);
+				}
+			}
+			//-- Eventos sobre fila
+			$this->html_cuadro_columnas_relleno($cant_evt_restantes);
+			echo toba::output()->get('CuadroSalidaHtml')->getFinFila();
+		}
+		if ($totales !== null){
+			echo toba::output()->get('CuadroSalidaHtml')->getInicioFila('ei-cuadro-totales');
+			$this->html_cuadro_columnas_relleno($cant_evt_pre_columnas);
+			foreach (array_keys($columnas) as $clave) {
+				//Defino el valor de la columna
+			    if(isset($totales[$clave])){
+					$valor = $totales[$clave];
+					if(!isset($estilo)){
+						$estilo = $columnas[$clave]["estilo"];
+					}
+					//La columna lleva un formateo?
+					if(isset($columnas[$clave]["formateo"])){
+						$metodo = "formato_" . $columnas[$clave]["formateo"];
+						$valor = $formateo->$metodo($valor);
+					}
+					if ($clave == 'preciototal')
+						$valor = '$&nbsp;' . $valor;
+					else if ($clave == 'kgtotales')
+						$valor = $valor . '&nbsp;kg.';
+					echo toba::output()->get('CuadroSalidaHtml')->getCeldaAcumulador($valor,"ei-cuadro-total $estilo",null);
+				}else{
+					echo toba::output()->get('CuadroSalidaHtml')->getCeldaAcumulador("&nbsp;",null,$clase_linea);
+				}
+			}
+			//-- Eventos sobre fila
+			$this->html_cuadro_columnas_relleno($cant_evt_restantes);
+			echo toba::output()->get('CuadroSalidaHtml')->getFinFila();
+		}//if totales
+	}
+
 }
 
 ?>

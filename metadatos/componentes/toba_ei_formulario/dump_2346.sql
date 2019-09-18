@@ -483,7 +483,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'5', --orden
-	'Cant. Medias', --etiqueta
+	'Cantidad', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado

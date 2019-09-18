@@ -13,4 +13,13 @@ INSERT INTO apex_consulta_php (proyecto, consulta_php, clase, archivo_clase, arc
 	NULL, --descripcion
 	'13'  --punto_montaje
 );
+INSERT INTO apex_consulta_php (proyecto, consulta_php, clase, archivo_clase, archivo, descripcion, punto_montaje) VALUES (
+	'gestionHacienda', --proyecto
+	'4', --consulta_php
+	'cons_clientes', --clase
+	'cons_clientes', --archivo_clase
+	'consultas/cons_clientes.php', --archivo
+	NULL, --descripcion
+	'13'  --punto_montaje
+);
 --- FIN Grupo de desarrollo 0

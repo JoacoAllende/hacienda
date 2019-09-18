@@ -211,7 +211,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'884', --objeto_cuadro_col
 	'cantanimales', --clave
 	'4', --orden
-	'Cant. Medias', --titulo
+	'Cantidad', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'cuadro-numero', --estilo
 	NULL, --ancho
@@ -330,3 +330,21 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL  --evento_asociado
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_cuadro_col_cc
+------------------------------------------------------------
+INSERT INTO apex_objeto_cuadro_col_cc (objeto_cuadro_cc, objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, total) VALUES (
+	'32', --objeto_cuadro_cc
+	'gestionHacienda', --objeto_cuadro_proyecto
+	'2356', --objeto_cuadro
+	'885', --objeto_cuadro_col
+	'1'  --total
+);
+INSERT INTO apex_objeto_cuadro_col_cc (objeto_cuadro_cc, objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, total) VALUES (
+	'32', --objeto_cuadro_cc
+	'gestionHacienda', --objeto_cuadro_proyecto
+	'2356', --objeto_cuadro
+	'887', --objeto_cuadro_col
+	'1'  --total
+);

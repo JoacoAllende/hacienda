@@ -113,6 +113,39 @@ class toba_ei_cuadro_salida_pdf_venta extends toba_ei_cuadro_salida_pdf
     	}
 	}
 
+	protected function pdf_get_fila_totales($totales, &$titulos=null, $resaltar=false)
+	{
+		$formateo = $this->_cuadro->get_instancia_clase_formateo('pdf');
+		$columnas = $this->_cuadro->get_columnas();
+		$datos = array();
+		foreach (array_keys($columnas) as $clave) {
+			//Defino el valor de la columna
+		    if(isset($totales[$clave])){
+				$valor = $totales[$clave];
+				if(!isset($estilo)){
+					$estilo = $columnas[$clave]["estilo"];
+				}
+				//La columna lleva un formateo?
+				if(isset($columnas[$clave]["formateo"])){
+					$metodo = "formato_" . $columnas[$clave]["formateo"];
+					$valor = $formateo->$metodo($valor);
+				}
+				if ($resaltar) {
+					$valor = '<b>'.$valor.'</b>';
+				}
+				if ($clave == 'preciototal')
+					$valor = '$' . $valor;
+				else if ($clave == 'kgtotales')
+					$valor = $valor . 'kg.';
+				$datos[$clave] = $valor;
+			}else{
+				unset($titulos[$clave]);
+				$datos[$clave] = null;
+			}
+		}
+		return $datos;
+	}
+
 }
 
 ?>
