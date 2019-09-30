@@ -35,7 +35,7 @@ class ci_ventas extends gestionHacienda_ci
 		$diferencia = $venta[0]['preciototal'] - $venta[0]['entrega'];
 		$id_cliente = $venta[0]['id_cliente'];
 		toba::consulta_php('cons_ventas')->eliminar_venta($id_venta);
-		toba::consulta_php('cons_ventas')->actualizar_ventas($id_venta, $diferencia);
+		toba::consulta_php('cons_ventas')->actualizar_ventas($id_venta, $diferencia, $id_cliente);
 		toba::consulta_php('cons_ventas')->actualizar_saldo_cliente($id_cliente);
 		$this->resetear();
 	}
@@ -78,12 +78,13 @@ class ci_ventas extends gestionHacienda_ci
 	function evt__formulario__modificacion($datos)
 	{
 		$venta = toba::consulta_php('cons_ventas')->get_venta($datos['id_venta'])[0];
+		$id_cliente = $venta['id_cliente'];
 		if ($datos['tipo'] == 'Pago') {
 			if ($datos['entrega'] != $venta['entrega']){
 				$this->dep('datos')->tabla('venta')->set($datos);
 				$this->dep('datos')->sincronizar();
 				$diferencia = $datos['entrega'] - $venta['entrega'];
-				toba::consulta_php('cons_ventas')->actualizar_ventas($venta['id_venta'] - 1, $diferencia);
+				toba::consulta_php('cons_ventas')->actualizar_ventas($venta['id_venta'] - 1, $diferencia, $id_cliente);
 				toba::consulta_php('cons_ventas')->actualizar_saldo_cliente($venta['id_cliente']);
 			}
 		} else if ($datos['tipo'] == 'Venta') {
@@ -94,7 +95,7 @@ class ci_ventas extends gestionHacienda_ci
 				$saldoNuevoCliente = $venta['saldoactualcliente'] + $venta['entrega'] - $datos['entrega'] - $venta['preciototal'] + $precioTotal;
 				$diferencia = $venta['saldoactualcliente'] - $saldoNuevoCliente;
 				toba::consulta_php('cons_ventas')->actualizar_venta($venta['id_venta'], $precioTotal, $saldoNuevoCliente);
-				toba::consulta_php('cons_ventas')->actualizar_ventas($venta['id_venta'], $diferencia);
+				toba::consulta_php('cons_ventas')->actualizar_ventas($venta['id_venta'], $diferencia, $id_cliente);
 				toba::consulta_php('cons_ventas')->actualizar_saldo_cliente($venta['id_cliente']);
 			}
 		}

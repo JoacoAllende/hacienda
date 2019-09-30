@@ -46,11 +46,11 @@ class cons_ventas
         toba::db()->ejecutar($sql);
     }
 
-    function actualizar_ventas($id_venta, $diferencia)
+    function actualizar_ventas($id_venta, $diferencia, $id_cliente)
     {
         $sql = "UPDATE venta 
                 SET saldoactualcliente = saldoactualcliente - ($diferencia)
-                WHERE id_venta > $id_venta";
+                WHERE id_venta > $id_venta AND id_cliente = $id_cliente";
         toba::db()->ejecutar($sql); 
     }
 
