@@ -12,17 +12,27 @@ class cons_ventas
         $sql .= "ORDER BY id_venta";
         return toba::db()->consultar($sql);
     }
-    
-    function add_venta($id_cliente, $fecha, $categoria, $tropa, $cantAnimales, $kgTotales, $precioKilo, 
-    $precioTotal, $entrega, $saldoCliente, $tipo)
-    {
+
+    function add_venta(
+        $id_cliente,
+        $fecha,
+        $categoria,
+        $tropa,
+        $cantAnimales,
+        $kgTotales,
+        $precioKilo,
+        $precioTotal,
+        $entrega,
+        $saldoCliente,
+        $tipo
+    ) {
         $sql = "INSERT INTO venta (id_cliente, fecha, categoria, tropa, cantanimales, kgtotales, preciokilo,
                 preciototal, entrega, saldoactualcliente, tipo)
                 VALUES ($id_cliente, '$fecha', '$categoria', $tropa, $cantAnimales, $kgTotales, $precioKilo, 
                 $precioTotal, $entrega, $saldoCliente, '$tipo')";
         toba::db()->ejecutar($sql);
     }
-    
+
     function get_saldo_cliente($id_cliente)
     {
         $sql = "SELECT saldo
@@ -30,14 +40,14 @@ class cons_ventas
                 WHERE id = $id_cliente";
         return toba::db()->consultar($sql);
     }
-    
+
     function add_pago($id_cliente, $fecha, $entrega, $saldoCliente, $tipo)
     {
         $sql = "INSERT INTO venta (id_cliente, fecha, entrega, saldoactualcliente, tipo)
                 VALUES ($id_cliente, '$fecha', $entrega, $saldoCliente, '$tipo')";
         toba::db()->ejecutar($sql);
     }
-    
+
     function update_saldo_cliente($id_cliente, $saldo)
     {
         $sql = "UPDATE cliente
@@ -51,7 +61,7 @@ class cons_ventas
         $sql = "UPDATE venta 
                 SET saldoactualcliente = saldoactualcliente - ($diferencia)
                 WHERE id_venta > $id_venta AND id_cliente = $id_cliente";
-        toba::db()->ejecutar($sql); 
+        toba::db()->ejecutar($sql);
     }
 
     function actualizar_saldo_cliente($id_cliente)
@@ -65,7 +75,8 @@ class cons_ventas
         toba::db()->ejecutar($sql);
     }
 
-    function get_venta($id_venta) {
+    function get_venta($id_venta)
+    {
         $sql = "SELECT *
                 FROM venta
                 WHERE id_venta = $id_venta";
@@ -76,7 +87,7 @@ class cons_ventas
     {
         $sql = "DELETE FROM venta 
                 WHERE id_venta = $id_venta";
-        toba::db()->ejecutar($sql); 
+        toba::db()->ejecutar($sql);
     }
 
     function actualizar_venta($id_venta, $precioTotal, $saldoCliente)
@@ -84,15 +95,7 @@ class cons_ventas
         $sql = "UPDATE venta 
                 SET preciototal = $precioTotal, saldoactualcliente = $saldoCliente
                 WHERE id_venta = $id_venta";
-        toba::db()->ejecutar($sql); 
-    }
-
-    function actualizar_pago($id_cliente, $entrega)
-    {
-        $sql = "UPDATE venta 
-                SET entrega = $entrega
-                WHERE id_venta = $id_venta";
-        toba::db()->ejecutar($sql); 
+        toba::db()->ejecutar($sql);
     }
 
     function get_ventas_por_tropa($tropa)
@@ -104,6 +107,14 @@ class cons_ventas
                 ORDER BY v.fecha";
         return toba::db()->consultar($sql);
     }
-    
+
+    function get_ventas_categoria_tropa($tropa)
+    {
+        $sql = "SELECT categoria, SUM(cantanimales) AS cantidad, SUM(kgtotales) AS kgtotales, SUM(preciototal) AS preciototal, tipo
+                FROM venta 
+                WHERE tropa = $tropa 
+                GROUP BY categoria, tipo 
+                ORDER BY categoria;";
+        return toba::db()->consultar($sql);
+    }
 }
-?>
