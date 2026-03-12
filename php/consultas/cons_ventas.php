@@ -28,7 +28,7 @@ class cons_ventas
     ) {
         $sql = "INSERT INTO venta (id_cliente, fecha, categoria, tropa, cantanimales, kgtotales, preciokilo,
                 preciototal, entrega, saldoactualcliente, tipo)
-                VALUES ($id_cliente, '$fecha', '$categoria', $tropa, $cantAnimales, $kgTotales, $precioKilo, 
+                VALUES ($id_cliente, '$fecha', '$categoria', '$tropa', $cantAnimales, $kgTotales, $precioKilo, 
                 $precioTotal, $entrega, $saldoCliente, '$tipo')";
         toba::db()->ejecutar($sql);
     }
@@ -103,7 +103,7 @@ class cons_ventas
         $sql = "SELECT v.tipo, v.fecha, v.categoria, v.cantanimales, v.kgtotales, v.preciokilo, v.preciototal, (c.apellido || ' ' || c.nombre) AS ncompleto
                 FROM venta AS v
                 INNER JOIN cliente AS c ON (c.id = v.id_cliente)
-                WHERE v.tropa = $tropa
+                WHERE v.tropa = '$tropa'
                 ORDER BY v.fecha";
         return toba::db()->consultar($sql);
     }
@@ -112,7 +112,7 @@ class cons_ventas
     {
         $sql = "SELECT categoria, SUM(cantanimales) AS cantidad, SUM(kgtotales) AS kgtotales, SUM(preciototal) AS preciototal, tipo
                 FROM venta 
-                WHERE tropa = $tropa 
+                WHERE tropa = '$tropa' 
                 GROUP BY categoria, tipo 
                 ORDER BY categoria;";
         return toba::db()->consultar($sql);
